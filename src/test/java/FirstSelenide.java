@@ -36,6 +36,7 @@ public class FirstSelenide {
         AddToBasketProduct pageBasket = sortingPrice.checkSortingPrice("//div[@class='price']");
         CheckAws checkOrderAws = new CheckAws();
         checkOrderAws.checkOrder(pageBasket.addToBasket());
+        System.out.println("Hello world");
 
     }
 }
