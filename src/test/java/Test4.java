@@ -1,4 +1,5 @@
 import com.codeborne.selenide.Configuration;
+import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 import org.junit.jupiter.api.Test;
@@ -8,10 +9,14 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Condition.visible;
+import static com.codeborne.selenide.Selectors.byId;
 import static com.codeborne.selenide.Selectors.byXpath;
-import static com.codeborne.selenide.Selenide.$;
-import static com.codeborne.selenide.Selenide.open;
+import static com.codeborne.selenide.Selenide.*;
 
 public class Test4 {
     {
@@ -21,13 +26,45 @@ public class Test4 {
         Configuration.holdBrowserOpen=true;
         Configuration.browserCapabilities=capabilities;
         capabilities.setCapability(ChromeOptions.CAPABILITY,chrome_options);
+        Configuration.startMaximized=true;
 
     }
 
     @Test
     public void test(){
 
-    ChromeOptions    chrome_options= new ChromeOptions();
+        String brand = "ALCA MOBIL";
+        open("https://aws.autodoc.de/products/search");
+        $(byXpath("//input[@id='login']")).shouldBe(visible);
+        $(byXpath("//input[@id='login']")).setValue("lion");
+        $(byXpath("//input[@id='password']")).setValue("4e24e740");
+        $(byXpath("//button[@class='btn btn-default btn-sm pull-right']")).click();
+        $(byId("order_products_list")).shouldBe(visible);
+        $(byId("form_filterSearch[onStorage]")).selectOptionByValue("no");
+        $(byXpath("//div[@id='form_filterSearch_suppliers__chzn']//input")).shouldBe(visible).setValue(brand);
+        $(byXpath("//em[contains(text(),'" + brand + "')]")).shouldBe(visible).click();
+        $(byId("form_filterSearch[inSuplierStocks]")).selectOptionByValue("yes");
+        $(byId("form_submit")).submit();
+        $(byXpath("//table[@id='order_products_list']//tr[2]//td[5]")).shouldHave(text(brand));
+
+        List<Integer> id = new ArrayList<>();
+
+        ElementsCollection idFromTable = $$(byXpath("//table[@id='order_products_list']//tr//td[1]"));
+        SelenideElement paginator = $(byXpath("//ul[@class='pagination']/li[8]/a"));
+
+     //   SelenideElement lastpage = $(byXpath("//div[@id='contentwrapper']//li[9]//a"));
+     //   String lastPage = lastpage.getAttribute("href");
+     //   String lastPAGE=lastPage.substring(44);
+        int lasTPage = Integer.parseInt($(byXpath("//div[@id='contentwrapper']//li[9]//a")).getAttribute("href").substring(44));
+
+        System.out.println(lasTPage);
+
+
+        for (int i=0; i<lasTPage;i++) {
+            paginator.click();
+        }
+
+    /*ChromeOptions    chrome_options= new ChromeOptions();
         DesiredCapabilities capabilities = new DesiredCapabilities();
 
 
@@ -38,7 +75,7 @@ public class Test4 {
         chrome_options.addArguments("–enable-automation");
         chrome_options.addArguments("–start-maximized");
         chrome_options.addArguments("--disable-notifications");
-
+*/
       //  System.setProperties();
 
 
