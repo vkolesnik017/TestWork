@@ -1,7 +1,7 @@
 import com.codeborne.selenide.*;
 import com.codeborne.selenide.junit5.SoftAssertsExtension;
 import org.apache.http.util.Asserts;
-import org.junit.jupiter.api.extension.ExtendWith;
+//import org.junit.jupiter.api.extension.ExtendWith;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -9,7 +9,7 @@ import java.util.List;
 
 import static com.codeborne.selenide.Selenide.page;
 
-@ExtendWith({SoftAssertsExtension.class})
+//@ExtendWith({SoftAssertsExtension.class})
 public class CheckPrice {
 
     public AddToBasketProduct checkSortingPrice(String locatorOfPricecs) {
