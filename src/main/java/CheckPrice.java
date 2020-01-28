@@ -1,19 +1,21 @@
-import com.codeborne.selenide.*;
-import com.codeborne.selenide.junit5.SoftAssertsExtension;
-import org.apache.http.util.Asserts;
-//import org.junit.jupiter.api.extension.ExtendWith;
+import com.codeborne.selenide.ElementsCollection;
+import com.codeborne.selenide.Selectors;
+import com.codeborne.selenide.Selenide;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 import static com.codeborne.selenide.Selenide.page;
+import static org.testng.AssertJUnit.assertTrue;
+
+//import org.junit.jupiter.api.extension.ExtendWith;
 
 //@ExtendWith({SoftAssertsExtension.class})
 public class CheckPrice {
 
     public AddToBasketProduct checkSortingPrice(String locatorOfPricecs) {
-        Configuration.assertionMode = AssertionMode.SOFT;
+//        Configuration.assertionMode = AssertionMode.SOFT;
         ElementsCollection priceList = Selenide.elements(Selectors.byXpath(locatorOfPricecs));
         System.out.println(priceList.size());
         List<Double> priceListDouble = new ArrayList();
@@ -27,7 +29,7 @@ public class CheckPrice {
         Collections.sort(checkPriceList);
         if (priceListDouble.size() == checkPriceList.size()) {
             for (int el = 0; el < priceList.size(); ++el) {
-                Asserts.check(priceListDouble.get(el) == checkPriceList.get(el), "Error");
+                assertTrue(priceListDouble.get(el).equals(checkPriceList.get(el)));
 
             }
         } else {

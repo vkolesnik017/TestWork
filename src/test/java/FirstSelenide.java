@@ -27,11 +27,11 @@ public class FirstSelenide {
     @Test
     public void check() {
         PageClass page = open("https://www.pkwteile.de/", PageClass.class);
-        CheckEmail checkletter = page.registrtion("aacgvasdhjvmbkjhcdvsghjcdfsdfsfv7@gmail.com");
+        CheckEmail checkletter = page.registrtion("saacgvafdgsdhjvmbkjhcdvsgghjcdfsdfsfv7@gmail.com");
         checkletter.selectLetter("testselenide2@gmail.com");
         SelectCar pageCar =  checkletter.closeWindowEmail();
         pageCar.logOut();
-        pageCar.logNewClient("amdaavfkjhghjkdasdbdbcghjvkvssafdff017@gmail.com");
+        pageCar.logNewClient("samdaavfkjhghjkdfgasdbdbcgfhjvkvssafdff017@gmail.com");
         PageCatalog selectCategory =  pageCar.selectCar(4,308,61);
         CheckPrice sortingPrice = selectCategory.selectCategory();
         AddToBasketProduct pageBasket = sortingPrice.checkSortingPrice("//div[@class='price']");
